@@ -40,6 +40,6 @@
         result += resultLetter;
       }
     }
-    document.getElementById("input-text").value = result;
+    document.getElementById("result-area").value = result;
   }
 })();
