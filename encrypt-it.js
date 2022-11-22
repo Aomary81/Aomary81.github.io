@@ -1,6 +1,38 @@
-/*
- * Starter file
- */
+function handleClick() {
+  console.log("Window loaded!");
+  var val = document.getElementById("input-text").value;
+  console.log("text-area value: ", val);
+  shiftCipher(val);
+}
+
+function reset() {
+  document.getElementById("input-text").value = "";
+  document.getElementById("result").innerHTML = "";
+}
+
+function shiftCipher(text) {
+  text = text.toLowerCase();
+  let result = "";
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] < "a" || text[i] > "z") {
+      result += text[i];
+    } else if (text[i] == "z") {
+      result += "a";
+    } else {
+      // letter is between 'a' and 'y'
+      let letter = text.charCodeAt(i);
+      let resultLetter = String.fromCharCode(letter + 1);
+      result += resultLetter;
+    }
+  }
+
+  // console.log("result: ", result);
+  const output = (document.getElementById("result").innerHTML = result);
+  // console.log("output", output);
+  return result;
+}
+
+// console.log("Window loaded!");
 
 (function () {
   "use strict";
@@ -18,28 +50,9 @@
   function init() {
     // Note: In this function, we usually want to set up our event handlers
     // for UI elements on the page.
-    var encryptButton = document.getElementById("encrypt-it");
-    encryptButton.addEventListener("click", handleClick);
   }
+
   // Add any other functions in this area (you should not implement your
   // entire program in the init function, for similar reasons that
   // you shouldn't write an entire Java program in the main method).
-  function handleClick() {
-    var text = document.getElementById("input-text").value;
-    text = text.toLowerCase();
-    let result = "";
-    for (let i = 0; i < text.length; i++) {
-      if (text[i] < "a" || text[i] > "z") {
-        result += text[i];
-      } else if (text[i] == "z") {
-        result += "a";
-      } else {
-        // letter is between 'a' and 'y'
-        let letter = text.charCodeAt(i);
-        let resultLetter = String.fromCharCode(letter + 1);
-        result += resultLetter;
-      }
-    }
-    document.getElementById("result").value = result;
-  }
 })();
