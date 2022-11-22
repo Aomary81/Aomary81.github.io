@@ -1,6 +1,7 @@
 /*
  * Starter file
  */
+
 (function () {
   "use strict";
 
@@ -17,16 +18,15 @@
   function init() {
     // Note: In this function, we usually want to set up our event handlers
     // for UI elements on the page.
-    console.log("Window loaded!");
-
-    var encryptClick = document.getElementById("encrypt-it");
-    encryptClick.addEventListener("click", handleClick);
+    var encryptButton = document.getElementById("encrypt-it");
+    encryptButton.addEventListener("click", handleClick);
   }
-
+  // Add any other functions in this area (you should not implement your
+  // entire program in the init function, for similar reasons that
+  // you shouldn't write an entire Java program in the main method).
   function handleClick() {
-    var input = document.getElementById("input-text").value;
-    input = input.toLowerCase();
-
+    var text = document.getElementById("input-text").value;
+    text = text.toLowerCase();
     let result = "";
     for (let i = 0; i < text.length; i++) {
       if (text[i] < "a" || text[i] > "z") {
@@ -42,7 +42,4 @@
     }
     document.getElementById("input-text").value = result;
   }
-  // Add any other functions in this area (you should not implement your
-  // entire program in the init function, for similar reasons that
-  // you shouldn't write an entire Java program in the main method).
 })();
