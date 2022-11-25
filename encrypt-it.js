@@ -1,39 +1,6 @@
-function handleClick() {
-  console.log("Window loaded!");
-  var val = document.getElementById("input-text").value;
-  console.log("text-area value: ", val);
-  shiftCipher(val);
-}
-
-function reset() {
-  document.getElementById("input-text").value = "";
-  document.getElementById("result").innerHTML = "";
-}
-
-function shiftCipher(text) {
-  text = text.toLowerCase();
-  let result = "";
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] < "a" || text[i] > "z") {
-      result += text[i];
-    } else if (text[i] == "z") {
-      result += "a";
-    } else {
-      // letter is between 'a' and 'y'
-      let letter = text.charCodeAt(i);
-      let resultLetter = String.fromCharCode(letter + 1);
-      result += resultLetter;
-    }
-  }
-
-  // console.log("result: ", result);
-  const output = (document.getElementById("result").innerHTML = result);
-  // console.log("output", output);
-  return result;
-}
-
-// console.log("Window loaded!");
-
+/*
+ * Starter file
+ */
 (function () {
   "use strict";
 
@@ -48,11 +15,72 @@ function shiftCipher(text) {
    * TODO: Write a function comment using JSDoc.
    */
   function init() {
-    // Note: In this function, we usually want to set up our event handlers
-    // for UI elements on the page.
+    console.log("Window loaded!");
+    document
+      .getElementById("encrypt-it")
+      .addEventListener("click", handleClick);
+    document.getElementById("normal-size").addEventListener("click", fontSize);
+    document.getElementById("bigger-size").addEventListener("click", fontSize);
+    document.getElementById("all-caps").addEventListener("change", upper);
+    document.getElementById("reset").addEventListener("click", reset);
+  }
+
+  function handleClick() {
+    var plainText = document.getElementById("input-text").value;
+    var ciphertext = shiftCipher(plainText);
+    ciphertext = shiftCipher(ciphertext);
+    document.getElementById("result").innerText = ciphertext;
+    console.log("button clicked");
+  }
+
+  function fontSize() {
+    if (document.getElementById("normal-size").checked) {
+      document.getElementById("result").style.fontSize = "12pt";
+    } else {
+      document.getElementById("result").style.fontSize = "24pt";
+    }
+  }
+
+  function upper() {
+    var text = document.getElementById("result");
+    if (document.getElementById("all-caps").checked) {
+      text.innerText.toUpperCase();
+    } else {
+      text.innerText.toLowerCase();
+    }
+  }
+
+  function reset() {
+    document.getElementById("all-caps").checked = false;
+    document.getElementById("result").innerText = "";
+    document.getElementById("input-text").value = "";
+    document.getElementById("result").style.fontSize = "12pt";
+    document.getElementById("normal-size").checked = true;
   }
 
   // Add any other functions in this area (you should not implement your
   // entire program in the init function, for similar reasons that
   // you shouldn't write an entire Java program in the main method).
+  /**
+   * Returns an encrypted version of the given text, where
+   * each letter is shifted alphabetically ahead by 1 letter,
+   * and 'z' is shifted to 'a' (creating an alphabetical cycle).
+   */
+  function shiftCipher(text) {
+    text = text.toLowerCase();
+    let result = "";
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] < "a" || text[i] > "z") {
+        result += text[i];
+      } else if (text[i] == "z") {
+        result += "a";
+      } else {
+        // letter is between 'a' and 'y'
+        let letter = text.charCodeAt(i);
+        let resultLetter = String.fromCharCode(letter + 1);
+        result += resultLetter;
+      }
+    }
+    return result;
+  }
 })();
